@@ -1,4 +1,4 @@
-position: 2
+position: 0
 token: env(token)
 username: env(username)
 
