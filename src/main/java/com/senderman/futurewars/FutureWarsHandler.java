@@ -109,10 +109,10 @@ public class FutureWarsHandler extends BotHandler {
             try {
                 execute(new SendMessage((long) message.getFrom().getId(), botConfig.getHelp()).setParseMode(ParseMode.HTML));
                 if (!message.isUserMessage())
-                    sendMessage(Methods.sendMessage(chatId, "Помощь отправлена вам в лс!")
+                    sendMessage(Methods.sendMessage(chatId, "Yordam shaxsiy xat orqali yuborildi!")
                             .setReplyToMessageId(message.getMessageId()));
             } catch (TelegramApiException e) {
-                sendMessage(Methods.sendMessage(chatId, "Сначала напишите боту в лс!")
+                sendMessage(Methods.sendMessage(chatId, "Oldin bot lichkasiga yozing!")
                         .setReplyToMessageId(message.getMessageId()));
             }
         }
