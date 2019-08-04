@@ -103,7 +103,7 @@ class PlayerClone extends Player {
 class TeamFlag extends Player {
 
     TeamFlag(int team) {
-        super(team * -1, "\uD83C\uDFF3️\u200D\uD83C\uDF08 Флаг команды " + team, team);
+        super(team * -1, "\uD83C\uDFF3️\u200D\uD83C\uDF08 Guruh bayrog'i " + team, team);
         hp = 15;
         pmReports = false;
         isReady = true;
