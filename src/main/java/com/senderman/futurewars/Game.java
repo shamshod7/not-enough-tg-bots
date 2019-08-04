@@ -57,8 +57,8 @@ class Game {
 
     private void makeTurn() {
         scheduledFuture.cancel(true);
-        var result = new StringBuilder("Ход " + turnCounter + ":\n\n");
-        var endOfResult = new StringBuilder("\nИтоги хода " + turnCounter + "\n\n");
+        var result = new StringBuilder("Yurish " + turnCounter + ":\n\n");
+        var endOfResult = new StringBuilder("\nYurish natijalari " + turnCounter + "\n\n");
         turnCounter++;
 
         for (int team : teams.keySet()) { // handle players actions
@@ -66,7 +66,7 @@ class Game {
             if (!teamIsAlive(team))
                 continue;
 
-            result.append("<b>Команда ").append(team).append("</b>:\n");
+            result.append("<b>Guruh ").append(team).append("</b>:\n");
             for (Player player : teams.get(team)) {
 
                 if (player.isDead)
@@ -77,36 +77,36 @@ class Game {
                     Methods.editMessageText()
                             .setChatId(player.id)
                             .setMessageId(player.message.getMessageId())
-                            .setText("Время вышло!")
+                            .setText("Vaqt tugadi!")
                             .setReplyMarkup(null)
                             .call(handler);
-                    result.append(String.format("\uD83D\uDE34 %1$s пропускает ход\n", player.name));
+                    result.append(String.format("\uD83D\uDE34 %1$s yurishni o'tkazib yubormoqda\n", player.name));
                     continue;
                 }
 
                 switch (player.action) {
                     case ATTACK:
-                        result.append(String.format("\uD83D\uDD34 %1$s стреляет в %2$s!\n",
+                        result.append(String.format("\uD83D\uDD34 %1$s %2$sga otayabdi!\n",
                                 player.name, player.target.name));
                         break;
                     case DEFENCE:
-                        result.append(String.format("\uD83D\uDD35 %1$s заряжает щит на %2$d!\n",
+                        result.append(String.format("\uD83D\uDD35 %1$s qalqonni %2$dga quvvatlayabdi!\n",
                                 player.name, player.currentShield));
                         break;
                     case DEF_FLAG:
-                        result.append(String.format("\uD83D\uDEE1 %1$s блокирует %2$d урона флага!\n",
+                        result.append(String.format("\uD83D\uDEE1 %1$s bayroqning %2$d zаrarini himoyaladi!\n",
                                 player.name, player.currentShield));
                         break;
                     case CHARGE_LASER:
-                        result.append(String.format("\uD83D\uDD0B %1$s восстановил 3 ед. энергии лазера!\n",
+                        result.append(String.format("\uD83D\uDD0B %1$s lazer energiyasini 3 birlikka quvvatladi!\n",
                                 player.name));
                         break;
                     case CHARGE_SHIELD:
-                        result.append(String.format("\uD83D\uDD0B %1$s восстановил 3 ед. энергии щита!\n",
+                        result.append(String.format("\uD83D\uDD0B %1$s qalqon energiyasini 3 birlikka quvvatladi!\n",
                                 player.name));
                         break;
                     case ROLL:
-                        result.append(String.format("\uD83D\uDC40 %1$s уворачивается!\n",
+                        result.append(String.format("\uD83D\uDC40 %1$s chetlashmoqda!\n",
                                 player.name));
                         break;
                     case SUMMON_CLONE:
@@ -115,7 +115,7 @@ class Game {
                         player.usedClone = true;
                         teams.get(player.team).add(clone);
                         players.put(clone.id, clone);
-                        result.append(String.format("\uD83D\uDE08 %1$s призывает клона!\n",
+                        result.append(String.format("\uD83D\uDE08 %1$s klonni chiqarayabdi!\n",
                                 player.name));
                         break;
                 }
@@ -127,7 +127,7 @@ class Game {
             if (!teamIsAlive(team))
                 continue;
 
-            endOfResult.append("<b>Команда ").append(team).append("</b>:\n");
+            endOfResult.append("<b>Guruh ").append(team).append("</b>:\n");
 
             for (Player player : teams.get(team)) {
 
@@ -139,13 +139,13 @@ class Game {
                     if (player.action != Player.ACTION.DEFENCE) {
                         if (player.action != Player.ACTION.ROLL) {
                             player.hp -= player.dmgTaken;
-                            endOfResult.append(String.format("\uD83D\uDC94 %1$s теряет %2$d хп. У него остается %3$d хп!\n",
+                            endOfResult.append(String.format("\uD83D\uDC94 %1$s %2$d jon yo'qotmoqda. Unda %3$d jon qoldi!\n",
                                     player.name, player.dmgTaken, player.hp));
                         } else {
                             var chance = ThreadLocalRandom.current().nextInt(100);
                             if (chance > 60) { // chance to avoid attack is 60%
                                 player.hp -= player.dmgTaken;
-                                endOfResult.append(String.format("\uD83D\uDC94 %1$s теряет %2$d хп. У него остается %3$d хп!\n",
+                                endOfResult.append(String.format("\uD83D\uDC94 %1$s %2$d jon yo'qotmoqda. Unda %3$d jon qoldi!\n",
                                         player.name, player.dmgTaken, player.hp));
                             }
                         }
@@ -153,16 +153,16 @@ class Game {
                         int gotEnergy;
                         if (player.dmgTaken <= player.currentShield) {
                             gotEnergy = 2;
-                            endOfResult.append(String.format("\uD83D\uDC99 %1$s блокирует весь входящий урон", player.name));
+                            endOfResult.append(String.format("\uD83D\uDC99 %1$s yetkazilgan barcha zarbani qaytardi!", player.name));
                         } else {
                             gotEnergy = 1;
                             var hpLost = player.dmgTaken - player.currentShield;
                             player.hp -= hpLost;
-                            endOfResult.append(String.format("\uD83D\uDC94 %1$s блокирует %2$d урона, теряет %3$d хп. У него остается %4$d хп!",
+                            endOfResult.append(String.format("\uD83D\uDC94 %1$s %2$d zarbani qaytardi va %3$d jon yo'qotdi. Unda %4$d jon qoldi!",
                                     player.name, player.currentShield, hpLost, player.hp));
                         }
                         player.laser += gotEnergy;
-                        endOfResult.append(String.format(" а еще он восстановил %1$d энергии лазера!\n", gotEnergy));
+                        endOfResult.append(String.format(" shuningdek %1$d lazer energiyasini ham tiklab oldi!\n", gotEnergy));
                     }
 
                     if (player.hp <= 0) {
@@ -171,25 +171,25 @@ class Game {
                         for (Player killer : player.attackers) {
                             killer.coins += lootForEveryOne;
                         }
-                        endOfResult.append(String.format("\uD83D\uDC80 %1$s умирает\n", player.name));
+                        endOfResult.append(String.format("\uD83D\uDC80 %1$s o'layabdi\n", player.name));
                     }
                 }
 
                 if (player.afkTurns == 2 && !player.isDead) { // death from AFK (and if he is still alive :)
                     player.isDead = true;
-                    endOfResult.append(String.format("\uD83D\uDC80 %1$s умирает от АФК\n", player.name));
+                    endOfResult.append(String.format("\uD83D\uDC80 %1$s AFK tufayli o'lmoqda\n", player.name));
                 }
 
                 if (player.clone != null && player.clone.turnsLeft == 0) { // clone's timeout death
                     player.clone.isDead = true;
-                    endOfResult.append(String.format("\uD83D\uDC80 Клон %1$s закончил свое существование\n", player.clone.name));
+                    endOfResult.append(String.format("\uD83D\uDC80 Klon %1$s o'lmoqda\n", player.clone.name));
                     player.clone = null;
                     continue;
                 }
 
                 if (player.clone != null && player.isDead) { // clone cannot survive without owner
                     player.clone.isDead = true;
-                    endOfResult.append(String.format("\uD83D\uDC80 Клон %1$s умирает без хозяина\n", player.clone.name));
+                    endOfResult.append(String.format("\uD83D\uDC80 Klon %1$s xo'jayinisiz o'lmoqda\n", player.clone.name));
                     continue;
                 }
 
@@ -201,7 +201,7 @@ class Game {
             if (flag != null) { // monsters does not have flag
                 if (flag.dmgTaken > 0) {
                     flag.hp -= flag.dmgTaken;
-                    endOfResult.append(String.format("\uD83D\uDC94 %1$s теряет %2$d хп. У него остается %3$d хп!\n",
+                    endOfResult.append(String.format("\uD83D\uDC94 %1$s %2$d jon yo'qotayabdi. Unda %3$d jon qoldi!\n",
                             flag.name, flag.dmgTaken, flag.hp));
                 }
                 if (flag.hp <= 0) {
@@ -212,7 +212,7 @@ class Game {
                     for (Player player : teams.get(team)) {
                         player.isDead = true;
                     }
-                    endOfResult.append(String.format("\uD83D\uDC80 Команда %1$d проиграла!\n", team));
+                    endOfResult.append(String.format("\uD83D\uDC80 Guruh %1$d mag'lubiyatga uchradi!\n", team));
                 }
                 flag.prepareForNextTurn();
             }
@@ -240,9 +240,9 @@ class Game {
 
         if (aliveTeams == 1) {
             var winText = new StringBuilder();
-            winText.append("\uD83D\uDC51 Команда ")
+            winText.append("\uD83D\uDC51 Guruh ")
                     .append(winner)
-                    .append(" победила! Выжившие:\n");
+                    .append(" g'alaba qildi! Tirik qolganlar:\n");
             for (Player player : teams.get(winner)) { // TODO stats for mongodb
                 if (!player.isDead && player.id > 0)
                     winText.append("- ").append(player.name).append("\n");
@@ -251,7 +251,7 @@ class Game {
             handler.sendMessage(chatId, winText.toString());
             GameController.endgame(this);
         } else if (aliveTeams == 0) {
-            handler.sendMessage(chatId, "\uD83D\uDC80 Все проиграли!");
+            handler.sendMessage(chatId, "\uD83D\uDC80 Barcha mag'lubiyatga uchradi!");
             GameController.endgame(this);
         } else {
             if (turnCounter % 5 == 0) { // summon CoinMonsters
@@ -280,14 +280,14 @@ class Game {
             return;
 
         player.action = action;
-        var text = new StringBuilder("Ход " + turnCounter + ": ");
+        var text = new StringBuilder("Yurish " + turnCounter + ": ");
 
         switch (action) {
             case ATTACK:
                 player.laser--;
                 player.target.dmgTaken++;
                 player.target.attackers.add(player);
-                text.append("атака");
+                text.append("xujum");
                 if (player.clone != null) {
                     player.target.dmgTaken++;
                     player.target.attackers.add(player.clone);
@@ -295,29 +295,29 @@ class Game {
                 break;
             case DEFENCE:
                 player.shield -= player.currentShield;
-                text.append("защита");
+                text.append("himoya");
                 break;
             case DEF_FLAG:
                 players.get(player.team * -1).dmgTaken -= player.currentShield;
                 player.shield -= player.currentShield;
-                text.append("защита флага");
+                text.append("bayroq himoyasi");
                 if (player.clone != null)
                     players.get(player.team * -1).dmgTaken -= player.currentShield;
                 break;
             case CHARGE_LASER:
                 player.laser += 3;
-                text.append("зарядка лазера");
+                text.append("lazer quvvatlash");
                 break;
             case CHARGE_SHIELD:
                 player.shield += 3;
-                text.append("зарядка щита");
+                text.append("qalqonni quvvatlash");
                 break;
             case ROLL:
-                text.append("уворот");
+                text.append("chetlashish");
                 player.rollCounter = 0;
                 break;
             case SUMMON_CLONE:
-                text.append("призыв клона");
+                text.append("klonni chiqarish");
                 break;
         }
         player.isReady = true;
@@ -362,18 +362,18 @@ class Game {
                     FutureWarsBot.CALLBACK_CONFIRM_DEFENCE :
                     FutureWarsBot.CALLBACK_CONFIRM_FLAG_DEFENCE;
             buttons.add(List.of(new InlineKeyboardButton()
-                    .setText("Защита")
+                    .setText("Himoya")
                     .setCallbackData(data + chatId)));
         }
 
         buttons.add(List.of(new InlineKeyboardButton()
-                .setText("Отмена")
+                .setText("Bekor qilish")
                 .setCallbackData(FutureWarsBot.CALLBACK_MAIN_MENU + chatId)));
         markup.setKeyboard(buttons);
         Methods.editMessageText()
                 .setChatId(playerId)
                 .setMessageId(players.get(playerId).message.getMessageId())
-                .setText("Заряд щита: " + players.get(playerId).currentShield)
+                .setText("Qalqon quvvati: " + players.get(playerId).currentShield)
                 .setReplyMarkup(markup)
                 .call(handler);
     }
@@ -394,13 +394,13 @@ class Game {
             buttons.add(row);
         }
         buttons.add(List.of(new InlineKeyboardButton()
-                .setText("Отмена")
+                .setText("Bekor qilish")
                 .setCallbackData(FutureWarsBot.CALLBACK_MAIN_MENU + chatId)));
         markup.setKeyboard(buttons);
         Methods.editMessageText()
                 .setChatId(playerId)
                 .setMessageId(player.message.getMessageId())
-                .setText("Выберите игрока")
+                .setText("Raqibni tanlang")
                 .setReplyMarkup(markup)
                 .call(handler);
     }
@@ -412,7 +412,7 @@ class Game {
 
         player.currentShield = 0;
 
-        var text = new StringBuilder("Ваша команда:\n\n");
+        var text = new StringBuilder("Sizning guruhingiz:\n\n");
         var flag = players.get(player.team * -1);
         text.append(String.format("%1$s: %2$d♥\n\n", flag.name, flag.hp));
         for (Player teammate : teams.get(player.team)) { // for each player's teammate
@@ -423,10 +423,10 @@ class Game {
                         player.name, player.hp, player.laser, player.shield, player.coins));
             } else if (teammate.id < 0) { // show clones
                 if (teammate.id * -1 == playerId) { // higlight current player's clone
-                    text.append(String.format("<b>%1$s (клон)</b>: %2$d♥️ %3$d\uD83D\uDD34, %4$d\uD83D\uDD35\n",
+                    text.append(String.format("<b>%1$s (klon)</b>: %2$d♥️ %3$d\uD83D\uDD34, %4$d\uD83D\uDD35\n",
                             player.name, player.hp, player.laser, player.shield));
                 } else {
-                    text.append(String.format("%1$s (клон): %2$d♥️ %3$d\uD83D\uDD34, %4$d\uD83D\uDD35\n",
+                    text.append(String.format("%1$s (klon): %2$d♥️ %3$d\uD83D\uDD34, %4$d\uD83D\uDD35\n",
                             player.name, player.hp, player.laser, player.shield));
                 }
             } else { // other players
@@ -439,43 +439,43 @@ class Game {
         List<InlineKeyboardButton> row1 = new ArrayList<>();
         if (player.laser > 0)
             row1.add(new InlineKeyboardButton()
-                    .setText("Атака")
+                    .setText("Xujum")
                     .setCallbackData(FutureWarsBot.CALLBACK_SELECT_TARGET + chatId));
         if (player.shield > 0) {
             row1.add(new InlineKeyboardButton()
-                    .setText("Защита")
+                    .setText("Himoya")
                     .setCallbackData(FutureWarsBot.CALLBACK_DEFENCE + chatId));
             row1.add(new InlineKeyboardButton()
-                    .setText("Защита флага")
+                    .setText("Bayroqni himoyalash")
                     .setCallbackData(FutureWarsBot.CALLBACK_FLAG_DEFENCE + chatId));
         }
 
         List<InlineKeyboardButton> row2 = new ArrayList<>();
         row2.add(new InlineKeyboardButton()
-                .setText("Зарядить лазер")
+                .setText("Lazerni quvvatlash")
                 .setCallbackData(FutureWarsBot.CALLBACK_CHARGE_LASER + chatId));
         row2.add(new InlineKeyboardButton()
-                .setText("Зарядить щит")
+                .setText("Qalqonni quvvatlash")
                 .setCallbackData(FutureWarsBot.CALLBACK_CHARGE_SHIELD + chatId));
 
         List<InlineKeyboardButton> row3 = new ArrayList<>();
         if (!player.usedClone) {
             row3.add(new InlineKeyboardButton()
-                    .setText("Призвать клона")
+                    .setText("Klon chiqarish")
                     .setCallbackData(FutureWarsBot.CALLBACK_SUMMON_CLONE + chatId));
         }
         if (player.rollCounter == 6) {
             row3.add(new InlineKeyboardButton()
-                    .setText("Уворот")
+                    .setText("Chetlashish")
                     .setCallbackData(FutureWarsBot.CALLBACK_ROLL + chatId));
         }
 
         var lastrow = List.of(new InlineKeyboardButton()
-                .setText("Сообщение команде")
+                .setText("Guruhga xat yo'llash")
                 .setSwitchInlineQueryCurrentChat(""));
 
         markup.setKeyboard(List.of(row1, row2, row3, lastrow));
-        text.append("\nВыберите действие:");
+        text.append("\nHarakatni tanlang:");
         if (player.message == null) {
             player.message = handler.sendMessage(Methods.sendMessage()
                     .setChatId(player.id)
