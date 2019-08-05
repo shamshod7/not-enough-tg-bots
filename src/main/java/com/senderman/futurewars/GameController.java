@@ -41,7 +41,7 @@ class GameController {
             return;
         }
 
-        var gameMsg = handler.sendMessage(chatId, "O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!");
+        var gameMsg = handler.sendMessage(chatId, "🌇O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!");
         var timer = new JoinTimer(chatId, handler);
         games.put(chatId, new Game(gameMsg.getChatId(), gameMsg.getMessageId(), timer, handler));
     }
@@ -136,9 +136,9 @@ class GameController {
                 .setParseMode(ParseMode.HTML)
                 .call(handler);
 
-        handler.sendMessage(chatId, "O'yin boshlandi!\n" +
-                "Hisobotni lichkaga jo'natishni O'chirish/Yoqish - /pmreports (Yoqilgan odatda)\n" +
-                "Hisobotni chatga jo'natish O'chirish/Yoqish - /chatreports (Yoqilgan odatda)");
+        handler.sendMessage(chatId, "<b>🏙O'yin boshlandi!</b>\n" +
+                "📈Hisobotni lichkaga jo'natishni O'chirish/Yoqish - /pmreports (Yoqilgan odatda)\n" +
+                "📉Hisobotni chatga jo'natish O'chirish/Yoqish - /chatreports (Yoqilgan odatda)");
     }
 
     void jointeam(CallbackQuery query) {
@@ -430,7 +430,7 @@ class GameController {
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         for (int team : game.getTeams().keySet()) {
             var row = List.of(new InlineKeyboardButton()
-                    .setText("Guruhga qo'shilish - " + team)
+                    .setText("📝" + team + "- Guruhga qo'shilish!")
                     .setCallbackData(FutureWarsBot.CALLBACK_JOIN_TEAM + team));
             buttons.add(row);
         }
