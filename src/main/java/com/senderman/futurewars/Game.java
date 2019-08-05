@@ -445,12 +445,13 @@ class Game {
             row1.add(new InlineKeyboardButton()
                     .setText("🛡Himoya")
                     .setCallbackData(FutureWarsBot.CALLBACK_DEFENCE + chatId));
-            
+        }
+        
         List<InlineKeyboardButton> row2 = new ArrayList<>();
         row2.add(new InlineKeyboardButton()
                     .setText("🚩Bayroqni himoyalash")
                     .setCallbackData(FutureWarsBot.CALLBACK_FLAG_DEFENCE + chatId));
-        }
+
 
         List<InlineKeyboardButton> row3 = new ArrayList<>();
         row3.add(new InlineKeyboardButton()
