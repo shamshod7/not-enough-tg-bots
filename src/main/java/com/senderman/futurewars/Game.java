@@ -36,7 +36,8 @@ class Game {
             var flag = new TeamFlag(team);
             players.put(flag.id, flag);
         }
-
+        }
+    
     private void makeTurn() {
         scheduledFuture.cancel(true);
         var result = new StringBuilder("🗓Yurish " + turnCounter + ":\n\n");
