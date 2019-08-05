@@ -58,7 +58,7 @@ class Game {
     private void makeTurn() {
         scheduledFuture.cancel(true);
         var result = new StringBuilder("🗓Yurish " + turnCounter + ":\n\n");
-        var endOfResult = new StringBuilder("\n📊Yurish natijalari " + turnCounter + "\n\n");
+        var endOfResult = new StringBuilder("\n📊 " + turnCounter + " - yurish natijalari: " + "\n\n");
         turnCounter++;
 
         for (int team : teams.keySet()) { // handle players actions
@@ -445,27 +445,29 @@ class Game {
             row1.add(new InlineKeyboardButton()
                     .setText("🛡Himoya")
                     .setCallbackData(FutureWarsBot.CALLBACK_DEFENCE + chatId));
-            row1.add(new InlineKeyboardButton()
+            
+        List<InlineKeyboardButton> row2 = new ArrayList<>();
+        row2.add(new InlineKeyboardButton()
                     .setText("🚩Bayroqni himoyalash")
                     .setCallbackData(FutureWarsBot.CALLBACK_FLAG_DEFENCE + chatId));
         }
 
-        List<InlineKeyboardButton> row2 = new ArrayList<>();
-        row2.add(new InlineKeyboardButton()
+        List<InlineKeyboardButton> row3 = new ArrayList<>();
+        row3.add(new InlineKeyboardButton()
                 .setText("⚡️Lazerni quvvatlash")
                 .setCallbackData(FutureWarsBot.CALLBACK_CHARGE_LASER + chatId));
-        row2.add(new InlineKeyboardButton()
-                .setText("🚩Qalqonni quvvatlash")
+        row3.add(new InlineKeyboardButton()
+                .setText("🔋Qalqonni quvvatlash")
                 .setCallbackData(FutureWarsBot.CALLBACK_CHARGE_SHIELD + chatId));
 
-        List<InlineKeyboardButton> row3 = new ArrayList<>();
+        List<InlineKeyboardButton> row4 = new ArrayList<>();
         if (!player.usedClone) {
-            row3.add(new InlineKeyboardButton()
+            row4.add(new InlineKeyboardButton()
                     .setText("👥Klon chiqarish")
                     .setCallbackData(FutureWarsBot.CALLBACK_SUMMON_CLONE + chatId));
         }
         if (player.rollCounter == 6) {
-            row3.add(new InlineKeyboardButton()
+            row4.add(new InlineKeyboardButton()
                     .setText("🌫Chetlashish")
                     .setCallbackData(FutureWarsBot.CALLBACK_ROLL + chatId));
         }
@@ -474,7 +476,7 @@ class Game {
                 .setText("Guruhga xat yo'llash")
                 .setSwitchInlineQueryCurrentChat(""));
 
-        markup.setKeyboard(List.of(row1, row2, row3, lastrow));
+        markup.setKeyboard(List.of(row1, row2, row3, row4, lastrow));
         text.append("\nHarakatni tanlang:");
         if (player.message == null) {
             player.message = handler.sendMessage(Methods.sendMessage()
