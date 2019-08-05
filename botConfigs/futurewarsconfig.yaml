@@ -1,5 +1,5 @@
 position: 0
-token: env(tokenka)
+token: env(token)
 username: env(username)
 
 help: |
