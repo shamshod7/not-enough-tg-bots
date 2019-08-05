@@ -19,7 +19,7 @@ class JoinTimer {
 
             if (i % 60 == 0) {
                 handler.sendMessage(chatId,
-                        "Qo'shilish uchun " + (i / 60) + " daqiqa qoldi!");
+                        "<b>⏱Qo'shilish uchun " + (i / 60) + " daqiqa qoldi!</b>");
             }
             try {
                 Thread.sleep(1000);
