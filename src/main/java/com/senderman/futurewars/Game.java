@@ -36,8 +36,14 @@ class Game {
             var flag = new TeamFlag(team);
             players.put(flag.id, flag);
         }
+        
+        isStarted = true;
+        for (Player player : players.values()) {
+            if (player.id > 0 && player.team != 228)
+                sendMainMenu(player.id);
         }
-    
+        scheduledFuture = scheduler.schedule(this::makeTurn, 1, TimeUnit.MINUTES);
+    }    
     private void makeTurn() {
         scheduledFuture.cancel(true);
         var result = new StringBuilder("🗓Yurish " + turnCounter + ":\n\n");
