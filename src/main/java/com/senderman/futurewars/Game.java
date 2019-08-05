@@ -36,14 +36,25 @@ class Game {
             var flag = new TeamFlag(team);
             players.put(flag.id, flag);
         }
-        
+
+        teams.put(228, new HashSet<>()); // summon CoinMonsters
+        for (int i = 0; i < 5; i++) {
+            int monsterId;
+            do {
+                monsterId = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+            } while (players.containsKey(monsterId));
+            var monster = new CoinMonster(monsterId);
+            players.put(monsterId, monster);
+            teams.get(228).add(monster);
+        }
         isStarted = true;
         for (Player player : players.values()) {
             if (player.id > 0 && player.team != 228)
                 sendMainMenu(player.id);
         }
         scheduledFuture = scheduler.schedule(this::makeTurn, 1, TimeUnit.MINUTES);
-    }    
+    }
+
     private void makeTurn() {
         scheduledFuture.cancel(true);
         var result = new StringBuilder("🗓Yurish " + turnCounter + ":\n\n");
@@ -207,6 +218,18 @@ class Game {
             }
         }
 
+        teams.get(228).removeIf(monster -> monster.isDead); // free memory from dead monsters
+        players.values().removeIf(monster -> monster.isDead);
+
+        int aliveTeams = 0;
+        int winner = -1;
+        for (int team : teams.keySet()) {
+            if (team != 228 && teamIsAlive(team)) {
+                aliveTeams++;
+                winner = team;
+            }
+        }
+
         result.append(endOfResult);
         if (chatReports)
             handler.sendMessage(chatId, result.toString());
@@ -230,6 +253,23 @@ class Game {
         } else if (aliveTeams == 0) {
             handler.sendMessage(chatId, "\uD83D\uDC80 Barcha mag'lubiyatga uchradi!");
             GameController.endgame(this);
+        } else {
+            if (turnCounter % 5 == 0) { // summon CoinMonsters
+                while (teams.get(228).size() < 5) {
+                    int monsterId;
+                    do {
+                        monsterId = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+                    } while (players.containsKey(monsterId));
+                    var monster = new CoinMonster(monsterId);
+                    players.put(monsterId, monster);
+                    teams.get(228).add(monster);
+                }
+            }
+            scheduledFuture = scheduler.schedule(this::makeTurn, 1, TimeUnit.MINUTES); // next turn
+            for (Player player : players.values()) {
+                if (!player.isDead && player.id > 0 && player.team != 228)
+                    sendMainMenu(player.id);
+            }
         }
 
     }
