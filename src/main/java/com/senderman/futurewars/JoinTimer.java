@@ -33,7 +33,7 @@ class JoinTimer {
     void stop(boolean timeIsUp) {
         if (timeIsUp) {
             GameController.stopjoin(chatId);
-            handler.sendMessage(chatId, "Время джоина истекло!");
+            handler.sendMessage(chatId, "Qo'shilish vaqti tugadi!");
         } else {
             runTimer = false;
         }
