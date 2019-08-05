@@ -57,8 +57,8 @@ class Game {
 
     private void makeTurn() {
         scheduledFuture.cancel(true);
-        var result = new StringBuilder("Yurish " + turnCounter + ":\n\n");
-        var endOfResult = new StringBuilder("\nYurish natijalari " + turnCounter + "\n\n");
+        var result = new StringBuilder("🗓Yurish " + turnCounter + ":\n\n");
+        var endOfResult = new StringBuilder("\n📊Yurish natijalari " + turnCounter + "\n\n");
         turnCounter++;
 
         for (int team : teams.keySet()) { // handle players actions
@@ -287,7 +287,7 @@ class Game {
                 player.laser--;
                 player.target.dmgTaken++;
                 player.target.attackers.add(player);
-                text.append("xujum");
+                text.append("⚔️xujum");
                 if (player.clone != null) {
                     player.target.dmgTaken++;
                     player.target.attackers.add(player.clone);
@@ -295,29 +295,29 @@ class Game {
                 break;
             case DEFENCE:
                 player.shield -= player.currentShield;
-                text.append("himoya");
+                text.append("🛡himoya");
                 break;
             case DEF_FLAG:
                 players.get(player.team * -1).dmgTaken -= player.currentShield;
                 player.shield -= player.currentShield;
-                text.append("bayroq himoyasi");
+                text.append("🚩bayroq himoyasi");
                 if (player.clone != null)
                     players.get(player.team * -1).dmgTaken -= player.currentShield;
                 break;
             case CHARGE_LASER:
                 player.laser += 3;
-                text.append("lazer quvvatlash");
+                text.append("⚡️lazer quvvatlash");
                 break;
             case CHARGE_SHIELD:
                 player.shield += 3;
-                text.append("qalqonni quvvatlash");
+                text.append("🔋qalqonni quvvatlash");
                 break;
             case ROLL:
-                text.append("chetlashish");
+                text.append("🌫chetlashish");
                 player.rollCounter = 0;
                 break;
             case SUMMON_CLONE:
-                text.append("klonni chiqarish");
+                text.append("👥klonni chiqarish");
                 break;
         }
         player.isReady = true;
@@ -439,34 +439,34 @@ class Game {
         List<InlineKeyboardButton> row1 = new ArrayList<>();
         if (player.laser > 0)
             row1.add(new InlineKeyboardButton()
-                    .setText("Xujum")
+                    .setText("⚔️Xujum")
                     .setCallbackData(FutureWarsBot.CALLBACK_SELECT_TARGET + chatId));
         if (player.shield > 0) {
             row1.add(new InlineKeyboardButton()
-                    .setText("Himoya")
+                    .setText("🛡Himoya")
                     .setCallbackData(FutureWarsBot.CALLBACK_DEFENCE + chatId));
             row1.add(new InlineKeyboardButton()
-                    .setText("Bayroqni himoyalash")
+                    .setText("🚩Bayroqni himoyalash")
                     .setCallbackData(FutureWarsBot.CALLBACK_FLAG_DEFENCE + chatId));
         }
 
         List<InlineKeyboardButton> row2 = new ArrayList<>();
         row2.add(new InlineKeyboardButton()
-                .setText("Lazerni quvvatlash")
+                .setText("⚡️Lazerni quvvatlash")
                 .setCallbackData(FutureWarsBot.CALLBACK_CHARGE_LASER + chatId));
         row2.add(new InlineKeyboardButton()
-                .setText("Qalqonni quvvatlash")
+                .setText("🚩Qalqonni quvvatlash")
                 .setCallbackData(FutureWarsBot.CALLBACK_CHARGE_SHIELD + chatId));
 
         List<InlineKeyboardButton> row3 = new ArrayList<>();
         if (!player.usedClone) {
             row3.add(new InlineKeyboardButton()
-                    .setText("Klon chiqarish")
+                    .setText("👥Klon chiqarish")
                     .setCallbackData(FutureWarsBot.CALLBACK_SUMMON_CLONE + chatId));
         }
         if (player.rollCounter == 6) {
             row3.add(new InlineKeyboardButton()
-                    .setText("Chetlashish")
+                    .setText("🌫Chetlashish")
                     .setCallbackData(FutureWarsBot.CALLBACK_ROLL + chatId));
         }
 
