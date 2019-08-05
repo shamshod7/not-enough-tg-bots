@@ -118,16 +118,6 @@ class TeamFlag extends Player {
     }
 }
 
-class CoinMonster extends Player {
-
-    CoinMonster(int id) {
-        super(id, "\uD83D\uDC7B CoinMonster " + id, 228); // there're only 25 teams in the game, so team 228 for CoinMonsters
-        hp = 2;
-        player.hp = ThreadLocalRandom.current().nextInt(5, 10);
-        pmReports = false;
-        isReady = true;
-    }
-
     @Override
     void prepareForNextTurn() {
         super.prepareForNextTurn();
