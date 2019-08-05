@@ -41,7 +41,7 @@ class GameController {
             return;
         }
 
-        var gameMsg = handler.sendMessage(chatId, "🌇O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!");
+        var gameMsg = handler.sendMessage(chatId, "<b>🌇O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!</b>");
         var timer = new JoinTimer(chatId, handler);
         games.put(chatId, new Game(gameMsg.getChatId(), gameMsg.getMessageId(), timer, handler));
     }
@@ -320,7 +320,7 @@ class GameController {
         }
         if (game == null) {
             var content = new InputTextMessageContent()
-                    .setMessageText("Men o'yin o'ynamasdan nimadir demoqchi bo'ldim!");
+                    .setMessageText("Siz o'yin o'ynamasdan nimadir demoqchi bo'ldiz!");
             var result = new InlineQueryResultArticle()
                     .setId("deny_team_message")
                     .setTitle("Siz o'yinda emassiz!")
@@ -332,7 +332,7 @@ class GameController {
             return;
         }
         var content = new InputTextMessageContent()
-                .setMessageText("Men o'z guruhimga nimadir dedim!");
+                .setMessageText("Siz o'z guruhizga nimadir dediz!");
         var result = new InlineQueryResultArticle()
                 .setId("send_to_team")
                 .setTitle("Guruhga yuborish")
@@ -405,9 +405,9 @@ class GameController {
     private String getTextForJoin(Game game) {
         var text = new StringBuilder();
         if (game.getTeams().size() < 2)
-            text.append("O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!\n\n");
+            text.append("<b>🌆O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!</b>\n\n");
         else
-            text.append("O'yin boshlandi! Guruh yaratish yoki mavjudiga qo'shilish uchun /newteam buyurug'ini yuboring!\n\n");
+            text.append("<b>🌆O'yin boshlandi! Guruh yaratish yoki mavjudiga qo'shilish uchun /newteam buyurug'ini yuboring!</b>\n\n");
 
         for (int teamId : game.getTeams().keySet()) {
             text.append(String.format("<b>Guruh %1$d:</b>\n", teamId));
@@ -430,7 +430,7 @@ class GameController {
         List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
         for (int team : game.getTeams().keySet()) {
             var row = List.of(new InlineKeyboardButton()
-                    .setText("📝" + team + "- Guruhga qo'shilish!")
+                    .setText("📝 " + team + " - Guruhga qo'shilish!")
                     .setCallbackData(FutureWarsBot.CALLBACK_JOIN_TEAM + team));
             buttons.add(row);
         }
