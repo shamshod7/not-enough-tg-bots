@@ -41,7 +41,7 @@ class GameController {
             return;
         }
 
-        var gameMsg = handler.sendMessage(chatId, "<b>🌇O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!</b>");
+        var gameMsg = handler.sendMessage(chatId, "<b>🌇O'yin boshlandi! Guruh yaratish uchun /guruh_ochish buyurug'ini yuboring!</b>");
         var timer = new JoinTimer(chatId, handler);
         games.put(chatId, new Game(gameMsg.getChatId(), gameMsg.getMessageId(), timer, handler));
     }
@@ -101,7 +101,7 @@ class GameController {
     void begin(Message message) {
         final var chatId = message.getChatId();
         if (!games.containsKey(chatId)) {
-            handler.sendMessage(chatId, "Ushbu chatda o'yin holi boshlanmagan! O'yinni boshlash uchun - /create");
+            handler.sendMessage(chatId, "Ushbu chatda o'yin holi boshlanmagan! O'yinni boshlash uchun - /yaratish");
             return;
         }
 
@@ -405,9 +405,9 @@ class GameController {
     private String getTextForJoin(Game game) {
         var text = new StringBuilder();
         if (game.getTeams().size() < 2)
-            text.append("<b>🌆O'yin boshlandi! Guruh yaratish uchun /newteam buyurug'ini yuboring!</b>\n\n");
+            text.append("<b>🌆O'yin boshlandi! Guruh yaratish uchun /guruh_ochish buyurug'ini yuboring!</b>\n\n");
         else
-            text.append("<b>🌆O'yin boshlandi! Guruh yaratish yoki mavjudiga qo'shilish uchun /newteam buyurug'ini yuboring!</b>\n\n");
+            text.append("<b>🌆O'yin boshlandi! Guruh yaratish yoki mavjudiga qo'shilish uchun /guruh_ochish buyurug'ini yuboring!</b>\n\n");
 
         for (int teamId : game.getTeams().keySet()) {
             text.append(String.format("<b>Guruh %1$d:</b>\n", teamId));
