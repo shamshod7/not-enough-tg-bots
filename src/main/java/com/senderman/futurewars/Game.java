@@ -38,7 +38,7 @@ class Game {
         }
 
         teams.put(228, new HashSet<>()); // summon CoinMonsters
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 0; i++) {
             int monsterId;
             do {
                 monsterId = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
