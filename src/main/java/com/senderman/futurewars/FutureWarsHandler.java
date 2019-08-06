@@ -105,7 +105,7 @@ public class FutureWarsHandler extends BotHandler {
         if (command.contains("@")) // check if the command is for bot or for all bots
             return null;
 
-        if (command.equals("/help")) {
+        if (command.equals("/yordam")) {
             try {
                 execute(new SendMessage((long) message.getFrom().getId(), botConfig.getHelp()).setParseMode(ParseMode.HTML));
                 if (!message.isUserMessage())
@@ -121,16 +121,16 @@ public class FutureWarsHandler extends BotHandler {
             return null;
 
         switch (command) {
-            case "/create":
+            case "/yaratish":
                 controller.create(message);
                 break;
-            case "/newteam":
+            case "/guruh_ochish":
                 controller.newteam(message);
                 break;
-            case "/escape":
+            case "/chiqish":
                 controller.escape(message);
                 break;
-            case "/begin":
+            case "/boshlash":
                 controller.begin(message);
                 break;
             case "/pmreports":
