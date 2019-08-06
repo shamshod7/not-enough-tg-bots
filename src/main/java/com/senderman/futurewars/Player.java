@@ -125,7 +125,7 @@ class CoinMonster extends Player {
         hp = 2;
         coins = ThreadLocalRandom.current().nextInt(5, 10);
         pmReports = false;
-        isReady = true;
+        isReady = false;
     }
 
     @Override
