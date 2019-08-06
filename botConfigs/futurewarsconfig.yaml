@@ -5,13 +5,13 @@ username: env(username)
 help: |
   <b>"Kelajak Janglari" o'yini bo'yicha ma'lumot:</b>
 
-  <b>Цель игры</b>: yagona tirik qolgan guruh bo'lish.
-  <b>Атака</b>: raqibdan 1 jonni olib lazerning 1 energiyasini sarflaydi.
-  <b>Защита</b>: "x" miqdordagi zarbani qaytaradi. Agarda siz barcha zarbni qaytara olsaz +2 lazer energiyasini olasiz. Aks holda -1
-  <b>Защита флага</b>: "x" miqdordagi  bayroq zaribi qaytaradi. Bayroq yo'qotilsa butun guruh yutqazadi.
-  <b>Зарядка лазера/щита</b>: lazerning/qalqonning 3 energiyasini to'ldiradi. Ularni maksimum energiyasi - 5ga teng.
-  <b>Уворот</b>: 60% ehtimollikda barcha zarblardan chetlashish imkonini beradi. Xar 5 yurishda tiklanadi.
-  <b>Создание клона</b>: hamma jihatdan sizni takrorlovchi klonni yaratasiz. 3 yurishdan yoki siz o'lganizdan so'ng o'ladi.
+  <b>Maqsad</b>: yagona tirik qolgan guruh bo'lish.
+  <b>Xujum</b>: raqibdan 1 jonni olib lazerning 1 energiyasini sarflaydi.
+  <b>Himoya</b>: "x" miqdordagi zarbani qaytaradi. Agarda siz barcha zarbni qaytara olsaz +2 lazer energiyasini olasiz. Aks holda -1
+  <b>Bayroq ximoyasi</b>: "x" miqdordagi  bayroq zaribi qaytaradi. Bayroq yo'qotilsa butun guruh yutqazadi.
+  <b>Lazerni/Qalqonni quvvatlash</b>: lazerning/qalqonning 3 energiyasini to'ldiradi. Ularni maksimum energiyasi - 5ga teng.
+  <b>Chetlashish</b>: 60% ehtimollikda barcha zarblardan chetlashish imkonini beradi. Xar 5 yurishda tiklanadi.
+  <b>Klon yaratish</b>: hamma jihatdan sizni takrorlovchi klonni yaratasiz. 3 yurishdan yoki siz o'lganizdan so'ng o'ladi.
   <b>AFK</b>:2x yurishni o'tkazib yuborsaz o'yinni tark etasiz.
   <b>Pullar haqida ma'lumot:</b> hozirda foydasiz, kelajakda ushbu pullarga yangi qurollar sotib olish mumkin bo'ladi.
 
